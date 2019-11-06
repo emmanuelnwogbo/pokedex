@@ -15,6 +15,11 @@ List<PokemonData> pokemons = [
       Colors.red
   ),
   PokemonData(
+      'pikachu',
+      'http://www.pngmart.com/files/2/Pikachu-PNG-File.png',
+      Colors.yellow
+  ),
+  PokemonData(
       'mewtwo',
       'http://pluspng.com/img-png/mewtwo-png-mewtwo-v1-by-waito-chan-1024.png',
       Colors.purple

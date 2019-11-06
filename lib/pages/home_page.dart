@@ -43,6 +43,14 @@ class _PokemonPageViewsState extends State<PokemonPageViews>{
     viewportFraction: 0.5
   );
 
+  int _activeIndex = 0;
+
+  void _onPageChanged(int _index) {
+    setState(() {
+      _activeIndex = _index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
@@ -50,18 +58,20 @@ class _PokemonPageViewsState extends State<PokemonPageViews>{
         physics: PageScrollPhysics(),
         pageSnapping: true,
         controller: _pageController,
+        onPageChanged: _onPageChanged,
         itemCount: pokemons.length,
-        itemBuilder: (context,index){
+        itemBuilder: (_context,_index){
+          var _isActive = _activeIndex == _index;
           var width = MediaQuery.of(context).size.width;
           var height = MediaQuery.of(context).size.height;
-          return Container(
-            margin: EdgeInsets.fromLTRB(
-                width * 0.10,
-                0,
-                width * 0.10, height * 0.10),
+          return AnimatedContainer(
+            duration: Duration(milliseconds: 300), curve: Curves.decelerate,//Curves.bounceOut
+            margin: EdgeInsets.symmetric(
+                horizontal: width * (_isActive ? 0.05 : 0.10),
+                vertical: height * (_isActive ? 0.01 : 0.05)),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: index % 2 == 0 ? Colors.red : Colors.green,
+                color: _index % 2 == 0 ? Colors.red : Colors.green,
             )
           );
     });
